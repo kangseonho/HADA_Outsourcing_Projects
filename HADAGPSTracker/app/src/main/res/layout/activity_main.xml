@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        android:background="@color/background">
+
+        <TextView
+            android:layout_width="287dp"
+            android:layout_height="66dp"
+            android:layout_marginBottom="220dp"
+            android:layout_gravity="center"
+            android:background="@drawable/outline"
+            android:text="COVID-19 GPS"
+            android:textColor="@color/white"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:textSize="40sp" />
+
+        <Button
+            android:id="@+id/tab_Map"
+            android:layout_width="260dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="50dp"
+            android:background="@drawable/outlinebutton"
+            android:text="이동 동선 기록"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            app:backgroundTint="#000000" />
+
+        <Button
+            android:id="@+id/tab_login"
+            android:layout_width="260dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/outlinebutton"
+            android:text="QR코드 이동"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            app:backgroundTint="#000000" />
+    </FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

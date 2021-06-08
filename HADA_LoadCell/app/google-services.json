@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "98456702099",
+    "firebase_url": "https://loadcell-22da2-default-rtdb.firebaseio.com",
+    "project_id": "loadcell-22da2",
+    "storage_bucket": "loadcell-22da2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:98456702099:android:c47360b6c4b7f7e58a9166",
+        "android_client_info": {
+          "package_name": "com.example.hada_loadcell"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "98456702099-tfs7a4patvrttbo1uv4jjnc498h6phvr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSQms30hPNsjOpRuMzi0ZBL7M3DqRX1Yw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "98456702099-tfs7a4patvrttbo1uv4jjnc498h6phvr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
