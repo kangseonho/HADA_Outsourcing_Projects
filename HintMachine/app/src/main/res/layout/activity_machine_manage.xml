@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MachineManage">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.028">
+
+        <TextView
+            android:id="@+id/tv_spec_content_1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:text="코드 입력"
+            android:textSize="20sp"
+            android:textColor="#386cb9" />
+
+        <EditText
+            android:id="@+id/input_code"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="3dp"
+            android:alpha="0.87"
+            android:gravity="center"
+            android:padding="7dp"
+            android:textColor="#000"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tv_spec_content_2"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:padding="10dp"
+            android:textSize="20sp"
+            android:text="힌트 입력"
+            android:textColor="#386cb9" />
+
+        <EditText
+            android:id="@+id/input_hint"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="3dp"
+            android:alpha="0.87"
+            android:gravity="center"
+            android:padding="7dp"
+            android:textColor="#000"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tv_spec_content_3"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:padding="10dp"
+            android:text="정답 입력"
+            android:textSize="20sp"
+            android:textColor="#386cb9" />
+
+        <EditText
+            android:id="@+id/input_answer"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="3dp"
+            android:alpha="0.87"
+            android:gravity="center"
+            android:padding="7dp"
+            android:textColor="#000"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/item_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onClickItemSave"
+            android:text="코드 저장"
+            android:backgroundTint="#386cb9"/>
+
+        <TextView
+            android:id="@+id/tv_spec_content_4"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:padding="10dp"
+            android:text="제한 시간"
+            android:textSize="20sp"
+            android:textColor="#386cb9" />
+
+        <EditText
+            android:id="@+id/input_time"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="3dp"
+            android:alpha="0.87"
+            android:gravity="center"
+            android:maxLength="10"
+            android:padding="7dp"
+            android:textColor="#000"
+            android:textSize="20sp" />
+        <Button
+            android:id="@+id/time_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onClickTimeSave"
+            android:text="시간 저장"
+            android:backgroundTint="#386cb9"/>
+        <TextView
+            android:id="@+id/tv_spec_content_5"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:padding="10dp"
+            android:text="이미지 선택"
+            android:textSize="20sp"
+            android:textColor="#386cb9" />
+
+        <ImageView
+            android:id="@+id/select_imageView"
+            android:layout_width="750dp"
+            android:layout_height="173dp"/>
+        <Button
+            android:id="@+id/select_image"
+            android:layout_width="750dp"
+            android:layout_height="50dp"
+            android:onClick="onClickSelectImage"
+            android:text="이미지 선택"
+            android:backgroundTint="#386cb9"/>
+
+        <ListView
+            android:id="@+id/itemlistView"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:choiceMode="multipleChoice" />
+        <Button
+            android:id="@+id/code_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="선택된 코드 삭제"
+            android:backgroundTint="#386cb9"/>
+
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

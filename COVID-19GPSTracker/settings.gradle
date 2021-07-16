@@ -1,0 +1,3 @@
+include ':drawroutemap'
+include ':app'
+rootProject.name = "[HADA]GPSTracker"
