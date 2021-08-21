@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import com.example.healthapp.Item.CalendarItem;
 import com.example.healthapp.R;
+import com.example.healthapp.dto.PreferenceManager;
+import com.example.healthapp.screen.CalendarActivity;
 
 import java.util.Calendar;
 
@@ -100,27 +102,43 @@ public class CalendarAdapter extends BaseAdapter {
             item.setShoulder(View.INVISIBLE);
             item.setLeg(View.INVISIBLE);
         }
-        tv_arm.setVisibility(item.isArm());
-        tv_shoulder.setVisibility(item.isShoulder());
-        tv_leg.setVisibility(item.isLeg());
+
+        if(PreferenceManager.getInt(mContext,String.valueOf(getCurYear())+String.valueOf(getCurMonth())+String.valueOf(item.getDay())+"arm") != -1) {
+            item.setArm(PreferenceManager.getInt(mContext,String.valueOf(getCurYear())+String.valueOf(getCurMonth())+String.valueOf(item.getDay()+"arm")));
+            tv_arm.setVisibility(item.isArm());
+        } else {
+            item.setArm(View.INVISIBLE);
+            tv_arm.setVisibility(item.isArm());
+        }
+
+        if(PreferenceManager.getInt(mContext,String.valueOf(getCurYear())+String.valueOf(getCurMonth())+String.valueOf(item.getDay())+"shoulder") != -1) {
+            item.setShoulder(PreferenceManager.getInt(mContext,String.valueOf(getCurYear())+String.valueOf(getCurMonth())+String.valueOf(item.getDay())+"shoulder"));
+            tv_shoulder.setVisibility(item.isShoulder());
+        } else {
+            item.setShoulder(View.INVISIBLE);
+            tv_shoulder.setVisibility(item.isShoulder());
+        }
+
+        if(PreferenceManager.getInt(mContext,String.valueOf(getCurYear())+String.valueOf(getCurMonth())+String.valueOf(item.getDay())+"leg") != -1) {
+            item.setLeg(PreferenceManager.getInt(mContext,String.valueOf(getCurYear())+String.valueOf(getCurMonth())+String.valueOf(item.getDay())+"leg"));
+            tv_leg.setVisibility(item.isLeg());
+        } else {
+            item.setLeg(View.INVISIBLE);
+            tv_leg.setVisibility(item.isLeg());
+        }
+
 
 
         if(position%7==0){
             tv_date.setTextColor(Color.RED);
         }
 
-
-
-
-//        GridView.LayoutParams params = new GridView.LayoutParams( GridView.LayoutParams.MATCH_PARENT,300);
-//        tv.setLayoutParams(params);
-//
         return convertView;
     }
 
 
     @Override
-    public Object getItem(int position) {
+    public CalendarItem getItem(int position) {
         return items[position];
     }
 
