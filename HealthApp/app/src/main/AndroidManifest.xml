@@ -9,8 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.HealthApp">
-        <activity android:name=".screen.MainActivity"></activity>
-        <activity android:name=".screen.CalendarActivity">
+        <activity android:name=".screen.CalendarActivity"></activity>
+        <activity android:name=".screen.MainActivity" />
+        <activity android:name=".screen.BmiActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
