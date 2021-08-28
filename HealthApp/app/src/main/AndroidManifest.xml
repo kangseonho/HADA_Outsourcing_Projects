@@ -11,21 +11,22 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="@string/title"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.HealthApp">
-        <activity android:name=".screen.SelectActivity"></activity>
-        <activity android:name=".screen.LoadingActivity" />
-        <activity android:name=".screen.BmiActivity">
+        android:theme="@style/main">
+        <activity android:name=".screen.LoadingActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".screen.SelectActivity" />
         <activity android:name=".screen.CalendarActivity" />
         <activity android:name=".screen.MainActivity" />
+        <activity android:name=".screen.BmiActivity" />
+        <service android:name=".ble.BluetoothLeService" android:enabled="true"></service>
     </application>
 
 </manifest>

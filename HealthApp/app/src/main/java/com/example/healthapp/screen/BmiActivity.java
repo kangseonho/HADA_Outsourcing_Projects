@@ -2,6 +2,7 @@ package com.example.healthapp.screen;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -30,8 +31,13 @@ public class BmiActivity extends AppCompatActivity {
             String bmi = String.format("%.2f",caculateBMI(height.getText().toString(),weight.getText().toString()));
             String state = stateBMI(caculateBMI(height.getText().toString(),weight.getText().toString()));
 
-            result.setText("BMI 수치: "+ bmi + "상태: "+ state);
+            result.setText("BMI 수치: "+ bmi + " / "+"상태: "+ state);
         }
+    }
+
+    public void onClickBack(View view) {
+        Intent intent = new Intent(getApplicationContext(), SelectActivity.class);
+        startActivity(intent);
     }
 
     private float caculateBMI(String height, String weight) {

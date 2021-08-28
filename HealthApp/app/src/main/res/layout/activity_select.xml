@@ -6,4 +6,100 @@
     android:layout_height="match_parent"
     tools:context=".screen.SelectActivity">
 
+    <ImageButton
+        android:id="@+id/select_health"
+        android:layout_width="156dp"
+        android:layout_height="156dp"
+        android:background="@drawable/select_health_background"
+        android:src="@drawable/health_menu"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.062"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.1" />
+
+    <ImageButton
+        android:id="@+id/select_bmi"
+        android:layout_width="156dp"
+        android:layout_height="156dp"
+        android:background="@drawable/select_bmi_background"
+        android:src="@drawable/bmi_menu"
+        app:layout_constraintBottom_toBottomOf="@+id/select_health"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/select_health"
+        app:layout_constraintTop_toTopOf="@+id/select_health" />
+
+    <ImageButton
+        android:id="@+id/select_calendar"
+        android:layout_width="156dp"
+        android:layout_height="156dp"
+        android:background="@drawable/select_calendar_background"
+        android:src="@drawable/calendar_menu"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/select_health"
+        app:layout_constraintHorizontal_bias="0.807"
+        app:layout_constraintStart_toStartOf="@+id/select_health"
+        app:layout_constraintTop_toBottomOf="@+id/select_health" />
+
+    <ImageButton
+        android:id="@+id/select_setting"
+        android:layout_width="156dp"
+        android:layout_height="156dp"
+        android:background="@drawable/select_setting_background"
+        android:src="@drawable/setting_menu"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/select_bmi"
+        app:layout_constraintHorizontal_bias="0.807"
+        app:layout_constraintStart_toStartOf="@+id/select_bmi"
+        app:layout_constraintTop_toBottomOf="@+id/select_bmi" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="운동"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/select_health"
+        app:layout_constraintStart_toStartOf="@+id/select_health"
+        app:layout_constraintTop_toBottomOf="@+id/select_health" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="BMI 측정"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/select_bmi"
+        app:layout_constraintStart_toStartOf="@+id/select_bmi"
+        app:layout_constraintTop_toBottomOf="@+id/select_bmi"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="캘린더"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/select_calendar"
+        app:layout_constraintStart_toStartOf="@+id/select_calendar"
+        app:layout_constraintTop_toBottomOf="@+id/select_calendar" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="환경설정"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/select_setting"
+        app:layout_constraintStart_toStartOf="@+id/select_setting"
+        app:layout_constraintTop_toBottomOf="@+id/select_setting" />
+
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

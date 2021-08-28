@@ -40,7 +40,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageButton"/>
 
     <Button
-        android:onClick=""
+        android:onClick="onTouchToScreen"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#00FFFFFF"/>

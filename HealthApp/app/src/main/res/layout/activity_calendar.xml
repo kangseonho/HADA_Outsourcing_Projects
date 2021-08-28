@@ -14,7 +14,10 @@
             android:id="@+id/monthPrevious"
             android:layout_width="100dp"
             android:layout_height="30dp"
-            android:gravity="center_horizontal"
+            android:text="지난 달"
+            android:textColor="@color/white"
+            android:background="@drawable/select_calendar_background"
+            android:gravity="center"
             android:layout_alignParentLeft="true"/>
 
         <TextView
@@ -31,7 +34,10 @@
             android:id="@+id/monthNext"
             android:layout_width="100dp"
             android:layout_height="30dp"
-            android:gravity="center_horizontal"
+            android:text="지난 달"
+            android:textColor="@color/white"
+            android:background="@drawable/select_calendar_background"
+            android:gravity="center"
             android:layout_alignParentRight="true"/>
     </RelativeLayout>
 
@@ -46,6 +52,7 @@
             android:layout_weight="1"
             android:text="일"
             android:textSize="30dp"
+            android:textColor="@color/white"
             android:textStyle="bold"
             android:gravity="center_horizontal"/>
 
@@ -54,6 +61,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="월"
+            android:textColor="@color/white"
             android:textSize="30dp"
             android:textStyle="bold"
             android:gravity="center_horizontal"/>
@@ -63,6 +71,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="화"
+            android:textColor="@color/white"
             android:textSize="30dp"
             android:textStyle="bold"
             android:gravity="center_horizontal"/>
@@ -72,6 +81,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="수"
+            android:textColor="@color/white"
             android:textSize="30dp"
             android:textStyle="bold"
             android:gravity="center_horizontal"/>
@@ -81,6 +91,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="목"
+            android:textColor="@color/white"
             android:textSize="30dp"
             android:textStyle="bold"
             android:gravity="center_horizontal"/>
@@ -90,6 +101,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="금"
+            android:textColor="@color/white"
             android:textSize="30dp"
             android:textStyle="bold"
             android:gravity="center_horizontal"/>
@@ -99,18 +111,19 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="토"
+            android:textColor="@color/white"
             android:textSize="30dp"
             android:textStyle="bold"
             android:gravity="center_horizontal"/>
     </LinearLayout>
+
     <GridView
         android:id="@+id/calendarView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="413dp"
+        android:background="#ffb80f"
+        android:horizontalSpacing="1dp"
         android:numColumns="7"
         android:stretchMode="columnWidth"
-        android:horizontalSpacing="1dp"
-        android:verticalSpacing="1dp"
-        android:background="@color/black">
-    </GridView>
+        android:verticalSpacing="1dp"></GridView>
 </LinearLayout>
