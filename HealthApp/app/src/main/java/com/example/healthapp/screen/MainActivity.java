@@ -19,8 +19,6 @@ import java.util.List;
 
 public class MainActivity extends BlunoLibrary {
     private Button buttonScan;
-    private Button buttonSerialSend;
-    private EditText serialSendText;
     private TextView serialReceivedText;
 
     @Override
@@ -39,34 +37,20 @@ public class MainActivity extends BlunoLibrary {
                 Toast.makeText(MainActivity.this,"실패",Toast.LENGTH_SHORT).show();
             }
         });
+        //onCreate Process by BlunoLibrary
+        onCreateProcess();
 
-        onCreateProcess();														//onCreate Process by BlunoLibrary
 
+        serialBegin(115200);
 
-        serialBegin(115200);													//set the Uart Baudrate on BLE chip to 115200
-
-        serialReceivedText=(TextView) findViewById(R.id.serialReveicedText);	//initial the EditText of the received data
-        serialSendText=(EditText) findViewById(R.id.serialSendText);			//initial the EditText of the sending data
-
-        buttonSerialSend = (Button) findViewById(R.id.buttonSerialSend);		//initial the button for sending the data
-        buttonSerialSend.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-
-                serialSend(serialSendText.getText().toString());				//send the data to the BLUNO
-            }
-        });
+        serialReceivedText=(TextView) findViewById(R.id.serialReveicedText);
 
         buttonScan = (Button) findViewById(R.id.buttonScan);					//initial the button for scanning the BLE device
         buttonScan.setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
-
-                buttonScanOnClickProcess();										//Alert Dialog for selecting the BLE device
+                buttonScanOnClickProcess();
             }
         });
     }

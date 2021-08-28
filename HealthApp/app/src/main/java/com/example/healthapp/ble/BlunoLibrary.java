@@ -35,7 +35,7 @@ import com.example.healthapp.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract  class BlunoLibrary  extends Activity{
+public abstract  class BlunoLibrary extends Activity{
 
     private Context mainContext=this;
     private  String [] mStrPermission = {
@@ -85,8 +85,8 @@ public abstract  class BlunoLibrary  extends Activity{
     BluetoothLeService mBluetoothLeService;
     private ArrayList<ArrayList<BluetoothGattCharacteristic>> mGattCharacteristics =
             new ArrayList<ArrayList<BluetoothGattCharacteristic>>();
-    private LeDeviceListAdapter mLeDeviceListAdapter=null;
     private BluetoothAdapter mBluetoothAdapter;
+    private BluetoothDevice mBluno;
     private boolean mScanning =false;
     AlertDialog mScanDeviceDialog;
     private String mDeviceName;
@@ -135,63 +135,39 @@ public abstract  class BlunoLibrary  extends Activity{
 
         Intent gattServiceIntent = new Intent(this, BluetoothLeService.class);
         bindService(gattServiceIntent, mServiceConnection, Context.BIND_AUTO_CREATE);
+    }
 
+    public void onConnection() {
+        final BluetoothDevice device = mBluno;
+        if (device == null)
+            return;
+        scanLeDevice(false);
 
-        // Initializes list view adapter.
-        mLeDeviceListAdapter = new LeDeviceListAdapter();
-        // Initializes and show the scan Device Dialog
-        mScanDeviceDialog = new AlertDialog.Builder(mainContext)
-                .setTitle("BLE Device Scan...").setAdapter(mLeDeviceListAdapter, new DialogInterface.OnClickListener() {
+        if(device.getName()==null || device.getAddress()==null)
+        {
+            mConnectionState=connectionStateEnum.isToScan;
+            onConectionStateChange(mConnectionState);
+        }
+        else{
 
-                    @Override
-                    public void onClick(DialogInterface dialog, int which)
-                    {
-                        final BluetoothDevice device = mLeDeviceListAdapter.getDevice(which);
-                        if (device == null)
-                            return;
-                        scanLeDevice(false);
+            System.out.println("onListItemClick " + device.getName().toString());
 
-                        if(device.getName()==null || device.getAddress()==null)
-                        {
-                            mConnectionState=connectionStateEnum.isToScan;
-                            onConectionStateChange(mConnectionState);
-                        }
-                        else{
+            System.out.println("Device Name:"+device.getName() + "   " + "Device Name:" + device.getAddress());
 
-                            System.out.println("onListItemClick " + device.getName().toString());
-
-                            System.out.println("Device Name:"+device.getName() + "   " + "Device Name:" + device.getAddress());
-
-                            mDeviceName=device.getName();
-                            mDeviceAddress=device.getAddress();
-                            if (mBluetoothLeService.connect(mDeviceAddress)) {
-                                Log.d(TAG, "Connect request success");
-                                mConnectionState=connectionStateEnum.isConnecting;
-                                onConectionStateChange(mConnectionState);
-                                mHandler.postDelayed(mConnectingOverTimeRunnable, 10000);
-                            }
-                            else {
-                                Log.d(TAG, "Connect request fail");
-                                mConnectionState=connectionStateEnum.isToScan;
-                                onConectionStateChange(mConnectionState);
-                            }
-                        }
-                    }
-                })
-                .setOnCancelListener(new DialogInterface.OnCancelListener() {
-
-                    @Override
-                    public void onCancel(DialogInterface arg0) {
-                        System.out.println("mBluetoothAdapter.stopLeScan");
-
-                        mConnectionState = connectionStateEnum.isToScan;
-                        onConectionStateChange(mConnectionState);
-                        mScanDeviceDialog.dismiss();
-
-                        scanLeDevice(false);
-                    }
-                }).create();
-
+            mDeviceName=device.getName();
+            mDeviceAddress=device.getAddress();
+            if (mBluetoothLeService.connect(mDeviceAddress)) {
+                Log.d(TAG, "Connect request success");
+                mConnectionState=connectionStateEnum.isConnecting;
+                onConectionStateChange(mConnectionState);
+                mHandler.postDelayed(mConnectingOverTimeRunnable, 10000);
+            }
+            else {
+                Log.d(TAG, "Connect request fail");
+                mConnectionState=connectionStateEnum.isToScan;
+                onConectionStateChange(mConnectionState);
+            }
+        }
     }
 
 
@@ -220,7 +196,6 @@ public abstract  class BlunoLibrary  extends Activity{
         System.out.println("BLUNOActivity onPause");
         scanLeDevice(false);
         mainContext.unregisterReceiver(mGattUpdateReceiver);
-        mLeDeviceListAdapter.clear();
         mConnectionState=connectionStateEnum.isToScan;
         onConectionStateChange(mConnectionState);
         mScanDeviceDialog.dismiss();
@@ -359,13 +334,11 @@ public abstract  class BlunoLibrary  extends Activity{
                 mConnectionState=connectionStateEnum.isScanning;
                 onConectionStateChange(mConnectionState);
                 scanLeDevice(true);
-                mScanDeviceDialog.show();
                 break;
             case isToScan:
                 mConnectionState=connectionStateEnum.isScanning;
                 onConectionStateChange(mConnectionState);
                 scanLeDevice(true);
-                mScanDeviceDialog   .show();
                 break;
             case isScanning:
 
@@ -395,16 +368,6 @@ public abstract  class BlunoLibrary  extends Activity{
 
     void scanLeDevice(final boolean enable) {
         if (enable) {
-            // Stops scanning after a pre-defined scan period.
-
-            System.out.println("mBluetoothAdapter.startLeScan");
-
-            if(mLeDeviceListAdapter != null)
-            {
-                mLeDeviceListAdapter.clear();
-                mLeDeviceListAdapter.notifyDataSetChanged();
-            }
-
             if(!mScanning)
             {
                 mScanning = true;
@@ -448,9 +411,10 @@ public abstract  class BlunoLibrary  extends Activity{
             ((Activity) mainContext).runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    System.out.println("mLeScanCallback onLeScan run ");
-                    mLeDeviceListAdapter.addDevice(device);
-                    mLeDeviceListAdapter.notifyDataSetChanged();
+                    if(device.getAddress().equals("D0:B5:C2:8F:77:5F")) {
+                        mBluno = device;
+                        onConnection();
+                    }
                 }
             });
         }
@@ -516,74 +480,6 @@ public abstract  class BlunoLibrary  extends Activity{
         intentFilter.addAction(BluetoothLeService.ACTION_GATT_SERVICES_DISCOVERED);
         intentFilter.addAction(BluetoothLeService.ACTION_DATA_AVAILABLE);
         return intentFilter;
-    }
-
-    private class LeDeviceListAdapter extends BaseAdapter {
-        private ArrayList<BluetoothDevice> mLeDevices;
-        private LayoutInflater mInflator;
-
-        public LeDeviceListAdapter() {
-            super();
-            mLeDevices = new ArrayList<BluetoothDevice>();
-            mInflator =  ((Activity) mainContext).getLayoutInflater();
-        }
-
-        public void addDevice(BluetoothDevice device) {
-            if (!mLeDevices.contains(device)) {
-                mLeDevices.add(device);
-            }
-        }
-
-        public BluetoothDevice getDevice(int position) {
-            return mLeDevices.get(position);
-        }
-
-        public void clear() {
-            mLeDevices.clear();
-        }
-
-        @Override
-        public int getCount() {
-            return mLeDevices.size();
-        }
-
-        @Override
-        public Object getItem(int i) {
-            return mLeDevices.get(i);
-        }
-
-        @Override
-        public long getItemId(int i) {
-            return i;
-        }
-
-        @Override
-        public View getView(int i, View view, ViewGroup viewGroup) {
-            ViewHolder viewHolder;
-            // General ListView optimization code.
-            if (view == null) {
-                view = mInflator.inflate(R.layout.listitem_device, null);
-                viewHolder = new ViewHolder();
-                viewHolder.deviceAddress = (TextView) view
-                        .findViewById(R.id.device_address);
-                viewHolder.deviceName = (TextView) view
-                        .findViewById(R.id.device_name);
-                System.out.println("mInflator.inflate  getView");
-                view.setTag(viewHolder);
-            } else {
-                viewHolder = (ViewHolder) view.getTag();
-            }
-
-            BluetoothDevice device = mLeDevices.get(i);
-            final String deviceName = device.getName();
-            if (deviceName != null && deviceName.length() > 0)
-                viewHolder.deviceName.setText(deviceName);
-            else
-                viewHolder.deviceName.setText(R.string.unknown_device);
-            viewHolder.deviceAddress.setText(device.getAddress());
-
-            return view;
-        }
     }
 
     public void request(int requestCode, OnPermissionsResult permissionsResult){
