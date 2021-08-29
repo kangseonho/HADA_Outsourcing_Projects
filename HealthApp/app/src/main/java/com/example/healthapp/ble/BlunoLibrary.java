@@ -29,13 +29,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.healthapp.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract  class BlunoLibrary extends Activity{
+public abstract  class BlunoLibrary extends AppCompatActivity {
 
     private Context mainContext=this;
     private  String [] mStrPermission = {
@@ -47,11 +48,6 @@ public abstract  class BlunoLibrary extends Activity{
 
     private  OnPermissionsResult permissionsResult;
     private  int requestCode;
-
-//	public BlunoLibrary(Context theContext) {
-//
-//		mainContext=theContext;
-//	}
 
     public abstract void onConectionStateChange(connectionStateEnum theconnectionStateEnum);
     public abstract void onSerialReceived(String theString);
@@ -317,12 +313,6 @@ public abstract  class BlunoLibrary extends Activity{
 
 
                 System.out.println("displayData "+intent.getStringExtra(BluetoothLeService.EXTRA_DATA));
-
-//            	mPlainProtocol.mReceivedframe.append(intent.getStringExtra(BluetoothLeService.EXTRA_DATA)) ;
-//            	System.out.print("mPlainProtocol.mReceivedframe:");
-//            	System.out.println(mPlainProtocol.mReceivedframe.toString());
-
-
             }
         }
     };
@@ -525,7 +515,6 @@ public abstract  class BlunoLibrary extends Activity{
                 for(int i = 0; i < grantResults.length; i++){
                     if(grantResults[i] == PackageManager.PERMISSION_DENIED){
                         System.out.println(permissions[i]);
-                        //如果有失败
                         mPerNoList.add(permissions[i]);
                     }
                 }

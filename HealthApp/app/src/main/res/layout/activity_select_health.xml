@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".screen.SelectHealthActivity">
+
+    <ImageButton
+        android:id="@+id/select_arm"
+        android:layout_width="156dp"
+        android:layout_height="156dp"
+        android:background="@drawable/select_arm_health_background"
+        android:src="@drawable/arm_health"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.062"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.1" />
+
+    <ImageButton
+        android:id="@+id/select_leg"
+        android:layout_width="156dp"
+        android:layout_height="156dp"
+        android:background="@drawable/select_leg_health_background"
+        android:src="@drawable/leg_health"
+        app:layout_constraintBottom_toBottomOf="@+id/select_arm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/select_arm"
+        app:layout_constraintTop_toTopOf="@+id/select_arm" />
+
+    <ImageButton
+        android:id="@+id/select_shoulder"
+        android:layout_width="156dp"
+        android:layout_height="156dp"
+        android:background="@drawable/select_shoulder_health_background"
+        android:src="@drawable/shoulder_health"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/select_arm"
+        app:layout_constraintHorizontal_bias="0.807"
+        app:layout_constraintStart_toStartOf="@+id/select_arm"
+        app:layout_constraintTop_toBottomOf="@+id/select_arm"/>
+
+    <Button
+        android:id="@+id/back_button"
+        android:layout_width="144dp"
+        android:layout_height="48dp"
+        android:background="@drawable/select_bmi_background"
+        android:text="뒤로가기"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        app:backgroundTint="#ff861c"
+        app:layout_constraintBottom_toBottomOf="@+id/select_shoulder"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/select_shoulder"
+        app:layout_constraintTop_toTopOf="@+id/select_shoulder" />
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="팔"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/select_arm"
+        app:layout_constraintStart_toStartOf="@+id/select_arm"
+        app:layout_constraintTop_toBottomOf="@+id/select_arm" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="하체"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/select_leg"
+        app:layout_constraintStart_toStartOf="@+id/select_leg"
+        app:layout_constraintTop_toBottomOf="@+id/select_leg"/>
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="어깨"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/select_shoulder"
+        app:layout_constraintStart_toStartOf="@+id/select_shoulder"
+        app:layout_constraintTop_toBottomOf="@+id/select_shoulder" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,8 +1,6 @@
 package com.example.healthapp.screen;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,39 +9,38 @@ import android.widget.Button;
 
 import com.example.healthapp.R;
 
-public class SelectActivity extends AppCompatActivity {
+public class SelectHealthActivity extends AppCompatActivity {
 
-    Button select_health;
-    Button select_bmi;
-    Button select_calendar;
-    Button select_setting;
+    Button arm_health;
+    Button leg_health;
+    Button shoulder_health;
+    Button back_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_select);
-
-        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getSupportActionBar().setCustomView(R.layout.custom_bar);
+        setContentView(R.layout.activity_select_health);
 
         View.OnClickListener buttonListener =  new View.OnClickListener() {
             Intent intent;
             @Override
             public void onClick(View v) {
                 switch (v.getId()) {
-                    case R.id.select_health:
-                        intent = new Intent(getApplicationContext(), SelectHealthActivity.class);
+                    case R.id.select_arm:
+                        intent = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(intent);
                         break;
-                    case R.id.select_bmi:
+                    case R.id.select_leg:
                         intent = new Intent(getApplicationContext(),BmiActivity.class);
                         startActivity(intent);
                         break;
-                    case R.id.select_calendar:
+                    case R.id.select_shoulder:
                         intent = new Intent(getApplicationContext(),CalendarActivity.class);
                         startActivity(intent);
                         break;
-                    case R.id.select_setting:
+                    case R.id.back_button:
+                        intent = new Intent(getApplicationContext(), SelectActivity.class);
+                        startActivity(intent);
                         break;
                     default:
                         return;
@@ -51,9 +48,9 @@ public class SelectActivity extends AppCompatActivity {
             }
         };
 
-        findViewById(R.id.select_health).setOnClickListener(buttonListener);
-        findViewById(R.id.select_bmi).setOnClickListener(buttonListener);
-        findViewById(R.id.select_calendar).setOnClickListener(buttonListener);
-        findViewById(R.id.select_setting).setOnClickListener(buttonListener);
+        findViewById(R.id.select_arm).setOnClickListener(buttonListener);
+        findViewById(R.id.select_leg).setOnClickListener(buttonListener);
+        findViewById(R.id.select_shoulder).setOnClickListener(buttonListener);
+        findViewById(R.id.back_button).setOnClickListener(buttonListener);
     }
 }

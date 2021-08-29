@@ -1,7 +1,9 @@
 package com.example.healthapp.screen;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.room.Room;
 
 import android.content.DialogInterface;
@@ -11,7 +13,6 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.healthapp.Item.CalendarItem;
 import com.example.healthapp.R;
@@ -29,6 +30,9 @@ public class CalendarActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
+
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.custom_bar);
 
         adt = new CalendarAdapter(this,R.layout.layout_calendar_attribute); //어댑터 객체 생성
         calendarView = findViewById(R.id.calendarView); //그리드뷰 객체 참조

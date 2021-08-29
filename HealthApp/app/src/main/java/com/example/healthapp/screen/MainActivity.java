@@ -12,6 +12,9 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.Toolbar;
+
 import com.example.healthapp.R;
 import com.example.healthapp.ble.BlunoLibrary;
 
@@ -25,6 +28,9 @@ public class MainActivity extends BlunoLibrary {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.custom_bar);
 
         request(1000, new OnPermissionsResult() {
             @Override
