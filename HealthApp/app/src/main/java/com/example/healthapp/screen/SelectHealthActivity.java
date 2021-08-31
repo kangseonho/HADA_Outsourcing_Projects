@@ -1,5 +1,6 @@
 package com.example.healthapp.screen;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -21,22 +22,28 @@ public class SelectHealthActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_health);
 
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.custom_bar);
+
         View.OnClickListener buttonListener =  new View.OnClickListener() {
             Intent intent;
             @Override
             public void onClick(View v) {
                 switch (v.getId()) {
                     case R.id.select_arm:
-                        intent = new Intent(getApplicationContext(), MainActivity.class);
-                        startActivity(intent);
+                        intent = new Intent(getApplicationContext(), HealthPopupActivity.class);
+                        intent.putExtra("health", "팔 운동");
+                        startActivityForResult(intent, 1);
                         break;
                     case R.id.select_leg:
-                        intent = new Intent(getApplicationContext(),BmiActivity.class);
-                        startActivity(intent);
+                        intent = new Intent(getApplicationContext(), HealthPopupActivity.class);
+                        intent.putExtra("health", "하체 운동");
+                        startActivityForResult(intent, 1);
                         break;
                     case R.id.select_shoulder:
-                        intent = new Intent(getApplicationContext(),CalendarActivity.class);
-                        startActivity(intent);
+                        intent = new Intent(getApplicationContext(), HealthPopupActivity.class);
+                        intent.putExtra("health", "어깨 운동");
+                        startActivityForResult(intent, 1);
                         break;
                     case R.id.back_button:
                         intent = new Intent(getApplicationContext(), SelectActivity.class);
