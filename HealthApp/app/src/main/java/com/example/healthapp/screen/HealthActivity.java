@@ -2,6 +2,7 @@ package com.example.healthapp.screen;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -48,8 +49,17 @@ public class HealthActivity extends BlunoLibrary {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_health);
 
-        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getSupportActionBar().setCustomView(R.layout.custom_bar);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowHomeEnabled(false);
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(false);
+        View view = getLayoutInflater().inflate(R.layout.custom_bar,
+                null);
+        ActionBar.LayoutParams layoutParams = new ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT,
+                ActionBar.LayoutParams.MATCH_PARENT);
+        actionBar.setCustomView(view, layoutParams);
+        Toolbar parent = (Toolbar) view.getParent();
+        parent.setContentInsetsAbsolute(0, 0);
 
         target_set = findViewById(R.id.target_set);
         target_count = findViewById(R.id.target_count);
@@ -113,16 +123,12 @@ public class HealthActivity extends BlunoLibrary {
                 if(rest_time < 0) {
                     rest_timer.setText("운동 중...");
                     rest_time = PreferenceManager.getInt(getApplicationContext(),"rest_time");
-                    
                     onCreateProcess();
                     buttonScanOnClickProcess();
+                    t.interrupt();
                 }
             }
         };
-
-        nr = new NewRunnable();
-        t = new Thread(nr);
-        t.start();
     }
 
     @Override
@@ -190,6 +196,10 @@ public class HealthActivity extends BlunoLibrary {
 
         if (target_count_count <= current_count_count) {
             current_set_count++;
+            if(target_set_count <= current_set_count) {
+                onDestroyProcess();
+                rest_timer.setText("운동 종료");
+            }
             current_set.setText("현재 세트: " + current_set_count+"회");
 
             nr = new NewRunnable();
@@ -199,6 +209,9 @@ public class HealthActivity extends BlunoLibrary {
             progressBar_left.setProgress(0);
             progressBar_right.setProgress(0);
             onDestroyProcess();
+            nr = new NewRunnable();
+            t = new Thread(nr);
+            t.start();
         }
     }
 
@@ -210,6 +223,7 @@ public class HealthActivity extends BlunoLibrary {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
+                    return;
                 }
                 runOnUiThread(runnable);
             }

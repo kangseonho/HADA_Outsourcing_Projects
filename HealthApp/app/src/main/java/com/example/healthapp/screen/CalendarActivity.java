@@ -13,11 +13,14 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.healthapp.Item.CalendarItem;
 import com.example.healthapp.R;
 import com.example.healthapp.adapter.CalendarAdapter;
 import com.example.healthapp.dto.PreferenceManager;
+
+import java.util.zip.Inflater;
 
 public class CalendarActivity extends AppCompatActivity {
 
@@ -31,8 +34,17 @@ public class CalendarActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
 
-        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getSupportActionBar().setCustomView(R.layout.custom_bar);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowHomeEnabled(false);
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(false);
+        View view = getLayoutInflater().inflate(R.layout.custom_bar,
+                null);
+        ActionBar.LayoutParams layoutParams = new ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT,
+                ActionBar.LayoutParams.MATCH_PARENT);
+        actionBar.setCustomView(view, layoutParams);
+        Toolbar parent = (Toolbar) view.getParent();
+        parent.setContentInsetsAbsolute(0, 0);
 
         adt = new CalendarAdapter(this,R.layout.layout_calendar_attribute); //어댑터 객체 생성
         calendarView = findViewById(R.id.calendarView); //그리드뷰 객체 참조

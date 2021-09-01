@@ -15,13 +15,13 @@
         <Button
             android:id="@+id/monthPrevious"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:background="@drawable/select_calendar_background"
             android:backgroundTint="#ffb80f"
             android:gravity="center"
             android:text="←"
-            android:textSize="10sp"
+            android:textSize="30sp"
             android:textColor="@color/white"
             app:backgroundTint="#ffb80f" />
 
@@ -37,14 +37,14 @@
 
         <Button
             android:id="@+id/monthNext"
-            android:layout_width="100dp"
-            android:layout_height="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:background="@drawable/select_calendar_background"
             android:backgroundTint="#ffb80f"
             android:gravity="center"
             android:text="→"
-            android:textSize="10sp"
+            android:textSize="30sp"
             android:textColor="@color/white"
             app:backgroundTint="#ffb80f" />
     </RelativeLayout>
