@@ -12,7 +12,6 @@ import android.bluetooth.BluetoothManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
@@ -21,38 +20,30 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.healthapp.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract  class BlunoLibrary extends AppCompatActivity {
-
+public abstract class BlunoLibraryPopup extends Activity {
     private Context mainContext=this;
     private  String [] mStrPermission = {
             Manifest.permission.ACCESS_FINE_LOCATION
     };
 
-    private List<String>  mPerList   = new ArrayList<>();
+    private List<String> mPerList   = new ArrayList<>();
     private List<String>  mPerNoList = new ArrayList<>();
 
-    private  OnPermissionsResult permissionsResult;
+    private BlunoLibrary.OnPermissionsResult permissionsResult;
     private  int requestCode;
 
-    public abstract void onConectionStateChange(connectionStateEnum theconnectionStateEnum);
+    public abstract void onConectionStateChange(connectionStatePopupEnum theconnectionStateEnum);
     public abstract void onSerialReceived(String theString);
     public void serialSend(String theString){
-        if (mConnectionState == connectionStateEnum.isConnected) {
+        if (mConnectionState == connectionStatePopupEnum.isConnected) {
             mSCharacteristic.setValue(theString);
             mBluetoothLeService.writeCharacteristic(mSCharacteristic);
         }
@@ -87,8 +78,8 @@ public abstract  class BlunoLibrary extends AppCompatActivity {
     AlertDialog mScanDeviceDialog;
     private String mDeviceName;
     private String mDeviceAddress;
-    public enum connectionStateEnum{isNull, isScanning, isToScan, isConnecting , isConnected, isDisconnecting};
-    public connectionStateEnum mConnectionState = connectionStateEnum.isNull;
+    public enum connectionStatePopupEnum{isNull, isScanning, isToScan, isConnecting , isConnected, isDisconnecting};
+    public connectionStatePopupEnum mConnectionState = connectionStatePopupEnum.isNull;
     private static final int REQUEST_ENABLE_BT = 1;
 
     private Handler mHandler= new Handler();
@@ -101,8 +92,8 @@ public abstract  class BlunoLibrary extends AppCompatActivity {
 
         @Override
         public void run() {
-            if(mConnectionState==connectionStateEnum.isConnecting)
-                mConnectionState=connectionStateEnum.isToScan;
+            if(mConnectionState== connectionStatePopupEnum.isConnecting)
+                mConnectionState= connectionStatePopupEnum.isToScan;
             onConectionStateChange(mConnectionState);
             mBluetoothLeService.close();
         }};
@@ -111,8 +102,8 @@ public abstract  class BlunoLibrary extends AppCompatActivity {
 
         @Override
         public void run() {
-            if(mConnectionState==connectionStateEnum.isDisconnecting)
-                mConnectionState=connectionStateEnum.isToScan;
+            if(mConnectionState== connectionStatePopupEnum.isDisconnecting)
+                mConnectionState= connectionStatePopupEnum.isToScan;
             onConectionStateChange(mConnectionState);
             mBluetoothLeService.close();
         }};
@@ -141,7 +132,7 @@ public abstract  class BlunoLibrary extends AppCompatActivity {
 
         if(device.getName()==null || device.getAddress()==null)
         {
-            mConnectionState=connectionStateEnum.isToScan;
+            mConnectionState= connectionStatePopupEnum.isToScan;
             onConectionStateChange(mConnectionState);
         }
         else{
@@ -154,13 +145,13 @@ public abstract  class BlunoLibrary extends AppCompatActivity {
             mDeviceAddress=device.getAddress();
             if (mBluetoothLeService.connect(mDeviceAddress)) {
                 Log.d(TAG, "Connect request success");
-                mConnectionState=connectionStateEnum.isConnecting;
+                mConnectionState= connectionStatePopupEnum.isConnecting;
                 onConectionStateChange(mConnectionState);
                 mHandler.postDelayed(mConnectingOverTimeRunnable, 10000);
             }
             else {
                 Log.d(TAG, "Connect request fail");
-                mConnectionState=connectionStateEnum.isToScan;
+                mConnectionState= connectionStatePopupEnum.isToScan;
                 onConectionStateChange(mConnectionState);
             }
         }
@@ -191,9 +182,10 @@ public abstract  class BlunoLibrary extends AppCompatActivity {
     public void onPauseProcess() {
         System.out.println("BLUNOActivity onPause");
         scanLeDevice(false);
+
         try {
             mainContext.unregisterReceiver(mGattUpdateReceiver);
-            mConnectionState= connectionStateEnum.isToScan;
+            mConnectionState= connectionStatePopupEnum.isToScan;
             onConectionStateChange(mConnectionState);
             mScanDeviceDialog.dismiss();
         } catch (IllegalArgumentException e){
@@ -282,7 +274,7 @@ public abstract  class BlunoLibrary extends AppCompatActivity {
 
             } else if (BluetoothLeService.ACTION_GATT_DISCONNECTED.equals(action)) {
                 mConnected = false;
-                mConnectionState = connectionStateEnum.isToScan;
+                mConnectionState = connectionStatePopupEnum.isToScan;
                 onConectionStateChange(mConnectionState);
                 mHandler.removeCallbacks(mDisonnectingOverTimeRunnable);
                 mBluetoothLeService.close();
@@ -305,13 +297,13 @@ public abstract  class BlunoLibrary extends AppCompatActivity {
                         mBluetoothLeService.writeCharacteristic(mSCharacteristic);
                         mSCharacteristic=mSerialPortCharacteristic;
                         mBluetoothLeService.setCharacteristicNotification(mSCharacteristic, true);
-                        mConnectionState = connectionStateEnum.isConnected;
+                        mConnectionState = connectionStatePopupEnum.isConnected;
                         onConectionStateChange(mConnectionState);
 
                     }
                     else {
                         Toast.makeText(mainContext, "Please select DFRobot devices",Toast.LENGTH_SHORT).show();
-                        mConnectionState = connectionStateEnum.isToScan;
+                        mConnectionState = connectionStatePopupEnum.isToScan;
                         onConectionStateChange(mConnectionState);
                     }
                 }
@@ -329,12 +321,12 @@ public abstract  class BlunoLibrary extends AppCompatActivity {
     {
         switch (mConnectionState) {
             case isNull:
-                mConnectionState=connectionStateEnum.isScanning;
+                mConnectionState= connectionStatePopupEnum.isScanning;
                 onConectionStateChange(mConnectionState);
                 scanLeDevice(true);
                 break;
             case isToScan:
-                mConnectionState=connectionStateEnum.isScanning;
+                mConnectionState= connectionStatePopupEnum.isScanning;
                 onConectionStateChange(mConnectionState);
                 scanLeDevice(true);
                 break;
@@ -350,7 +342,7 @@ public abstract  class BlunoLibrary extends AppCompatActivity {
                 mHandler.postDelayed(mDisonnectingOverTimeRunnable, 10000);
 
 //			mBluetoothLeService.close();
-                mConnectionState=connectionStateEnum.isDisconnecting;
+                mConnectionState= connectionStatePopupEnum.isDisconnecting;
                 onConectionStateChange(mConnectionState);
                 break;
             case isDisconnecting:
@@ -460,7 +452,7 @@ public abstract  class BlunoLibrary extends AppCompatActivity {
 
         if (mModelNumberCharacteristic==null || mSerialPortCharacteristic==null || mCommandCharacteristic==null) {
             Toast.makeText(mainContext, "Please select DFRobot devices",Toast.LENGTH_SHORT).show();
-            mConnectionState = connectionStateEnum.isToScan;
+            mConnectionState = connectionStatePopupEnum.isToScan;
             onConectionStateChange(mConnectionState);
         }
         else {
@@ -480,7 +472,7 @@ public abstract  class BlunoLibrary extends AppCompatActivity {
         return intentFilter;
     }
 
-    public void request(int requestCode, OnPermissionsResult permissionsResult){
+    public void request(int requestCode, BlunoLibrary.OnPermissionsResult permissionsResult){
         if(!checkPermissionsAll()){
             requestPermissionAll(requestCode, permissionsResult);
         }
@@ -511,7 +503,7 @@ public abstract  class BlunoLibrary extends AppCompatActivity {
         }
     }
 
-    protected void requestPermissionAll(int requestCode, OnPermissionsResult permissionsResult){
+    protected void requestPermissionAll(int requestCode, BlunoLibrary.OnPermissionsResult permissionsResult){
         this.permissionsResult = permissionsResult;
         requestPermission((String[]) mPerList.toArray(new String[mPerList.size()]),requestCode);
     }

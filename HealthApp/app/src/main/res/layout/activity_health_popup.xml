@@ -55,6 +55,7 @@
         app:layout_constraintTop_toBottomOf="@+id/health_popup_title" />
 
     <Button
+        android:id="@+id/back_button"
         android:layout_width="144dp"
         android:layout_height="48dp"
         android:text="취소"

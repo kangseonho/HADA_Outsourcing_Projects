@@ -15,8 +15,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.HealthApp">
-        <activity android:name=".screen.HealthPopupGoActivity"
-            android:theme="@android:style/Theme.Dialog"/>
+        <activity android:name=".screen.HealthActivity"></activity>
+        <activity android:name=".screen.SelectHealthSystemActivity" />
+        <activity
+            android:name=".screen.HealthPopupGoActivity"
+            android:theme="@android:style/Theme.Dialog" />
         <activity
             android:name=".screen.HealthPopupActivity"
             android:theme="@android:style/Theme.Dialog" />
