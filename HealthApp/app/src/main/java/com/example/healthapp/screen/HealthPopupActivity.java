@@ -1,6 +1,5 @@
-package com.example.healthapp.screen;
+    package com.example.healthapp.screen;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -11,12 +10,11 @@ import android.widget.Toast;
 
 import com.example.healthapp.R;
 import com.example.healthapp.ble.BlunoLibrary;
-import com.example.healthapp.ble.BlunoLibraryPopup;
 import com.example.healthapp.dto.PreferenceManager;
 
 import java.util.List;
 
-public class HealthPopupActivity extends BlunoLibraryPopup {
+public class HealthPopupActivity extends BlunoLibrary {
 
     TextView title;
     Button init;
@@ -36,7 +34,7 @@ public class HealthPopupActivity extends BlunoLibraryPopup {
         String data = intent.getStringExtra("health");
         title.setText(data);
 
-        request(1000, new BlunoLibrary.OnPermissionsResult() {
+        request(1000, new OnPermissionsResult() {
             @Override
             public void OnSuccess() {
                 Toast.makeText(HealthPopupActivity.this,"성공",Toast.LENGTH_SHORT).show();
@@ -50,6 +48,7 @@ public class HealthPopupActivity extends BlunoLibraryPopup {
 
         onCreateProcess();
         serialBegin(115200);
+
         init.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,6 +61,7 @@ public class HealthPopupActivity extends BlunoLibraryPopup {
             public void onClick(View v) {
                 Intent intent1 = new Intent(getApplicationContext(), HealthPopupGoActivity.class);
                 startActivityForResult(intent1, 1);
+                finish();
             }
         });
 
@@ -79,10 +79,22 @@ public class HealthPopupActivity extends BlunoLibraryPopup {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
+
+    protected void onResume(){
+        super.onResume();
+        System.out.println("BlUNOActivity onResume");
+        onResumeProcess();														//onResume Process by BlunoLibrary
+    }
+
     @Override
     protected void onPause() {
-        super.onPause();
-        onPauseProcess();														//onPause Process by BlunoLibrary
+        try {
+            super.onPause();
+            onPauseProcess();
+        } catch (IllegalArgumentException e) {
+
+        }
+        														//onPause Process by BlunoLibrary
     }
 
     protected void onStop() {
@@ -111,12 +123,13 @@ public class HealthPopupActivity extends BlunoLibraryPopup {
         return;
     }
 
-
     @Override
-    public void onConectionStateChange(connectionStatePopupEnum theConnectionStateEnum) {
+    public void onConectionStateChange(connectionStateEnum theConnectionStateEnum) {
         switch (theConnectionStateEnum) {											//Four connection state
             case isConnected:
                 Toast.makeText(HealthPopupActivity.this,"Connected",Toast.LENGTH_SHORT).show();
+                serialSend("0");
+                System.out.println("adfasdfasdfasdfsfsf");
                 break;
             case isConnecting:
                 Toast.makeText(HealthPopupActivity.this,"Connecting",Toast.LENGTH_SHORT).show();

@@ -22,6 +22,7 @@ import java.util.List;
 
 public class MainActivity extends BlunoLibrary {
     private Button buttonScan;
+    private Button buttonSend;
     private TextView serialReceivedText;
 
     @Override
@@ -50,6 +51,14 @@ public class MainActivity extends BlunoLibrary {
         serialBegin(115200);
 
         serialReceivedText=(TextView) findViewById(R.id.serialReveicedText);
+        buttonSend=(Button) findViewById(R.id.buttonSend);
+
+        buttonSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                serialSend("123");
+            }
+        });
 
         buttonScan = (Button) findViewById(R.id.buttonScan);					//initial the button for scanning the BLE device
         buttonScan.setOnClickListener(new OnClickListener() {

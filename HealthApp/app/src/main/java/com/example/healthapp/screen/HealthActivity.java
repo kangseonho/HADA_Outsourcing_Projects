@@ -18,9 +18,13 @@ import com.example.healthapp.ble.BlunoLibrary;
 import com.example.healthapp.dto.PreferenceManager;
 
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class HealthActivity extends BlunoLibrary {
 
+    TimerTask timerTask;
+    Timer timer = new Timer();
     TextView target_set;
     TextView target_count;
     TextView current_set;
@@ -39,10 +43,9 @@ public class HealthActivity extends BlunoLibrary {
     int progressBar_right_gage=0;
     int init_right=0;
     int init_left=0;
-    Runnable runnable;
-    NewRunnable nr;
-    Thread t;
-
+    boolean flag_left = true;
+    boolean flag_right = true;
+    boolean flag = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,23 +115,6 @@ public class HealthActivity extends BlunoLibrary {
                 finish();
             }
         });
-
-
-        runnable = new Runnable() {
-            @Override
-            public void run() {
-                rest_time--;
-                rest_timer.setText("휴식시간: "+rest_time+"초");
-
-                if(rest_time < 0) {
-                    rest_timer.setText("운동 중...");
-                    rest_time = PreferenceManager.getInt(getApplicationContext(),"rest_time");
-                    onCreateProcess();
-                    buttonScanOnClickProcess();
-                    t.interrupt();
-                }
-            }
-        };
     }
 
     @Override
@@ -141,6 +127,12 @@ public class HealthActivity extends BlunoLibrary {
     protected void onPause() {
         super.onPause();
         onPauseProcess();														//onPause Process by BlunoLibrary
+    }
+
+    protected void onResume(){
+        super.onResume();
+        System.out.println("BlUNOActivity onResume");
+        onResumeProcess();														//onResume Process by BlunoLibrary
     }
 
     protected void onStop() {
@@ -159,6 +151,7 @@ public class HealthActivity extends BlunoLibrary {
         switch (theConnectionState) {											//Four connection state
             case isConnected:
                 Toast.makeText(HealthActivity.this,"Connected",Toast.LENGTH_SHORT).show();
+                serialSend("1");
                 break;
             case isConnecting:
                 Toast.makeText(HealthActivity.this,"Connecting",Toast.LENGTH_SHORT).show();
@@ -186,47 +179,96 @@ public class HealthActivity extends BlunoLibrary {
         left = left - init_left;
         right = right - init_right;
 
+
+        if( 0 < left && left <= 40) {
+            flag_left = true;
+        }
+
+        if( 0 < right && right <= 40) {
+            flag_right = true;
+        }
+
+        if(flag_left && flag_right) {
+            flag = true;
+        }
+
         progressBar_left.setProgress(left);
         progressBar_right.setProgress(right);
 
-        if (left > 0 && right > 0) {
-            current_count_count++;
-            current_count.setText("현재 횟수: " + current_count_count+"회");
+        if(flag) {
+            if (flag_left && left > 80) {
+                current_count_count++;
+                current_count.setText("현재 횟수: " + current_count_count + "회");
+                flag_left = false;
+            }
+            else if (flag_right && right > 80 ) {
+                current_count_count++;
+                current_count.setText("현재 횟수: " + current_count_count+"회");
+                flag_right = false;
+            }
+            flag = false;
         }
 
         if (target_count_count <= current_count_count) {
+            current_count_count = 0;
+            current_count.setText("현재 횟수: "+ current_count_count+"회");
             current_set_count++;
             if(target_set_count <= current_set_count) {
+                onStop();
                 onDestroyProcess();
                 rest_timer.setText("운동 종료");
             }
-            current_set.setText("현재 세트: " + current_set_count+"회");
 
-            nr = new NewRunnable();
-            t = new Thread(nr);
-            t.start();
+            current_set.setText("현재 세트: " + current_set_count+"회");
 
             progressBar_left.setProgress(0);
             progressBar_right.setProgress(0);
-            onDestroyProcess();
-            nr = new NewRunnable();
-            t = new Thread(nr);
-            t.start();
+            serialSend("2");
+
+            startTimerTask();
         }
     }
 
-    class NewRunnable implements Runnable {
-        @Override
-        public void run() {
-            while (true) {
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                    return;
+    private void startTimerTask()
+    {
+        stopTimerTask();
+
+        timerTask = new TimerTask()
+        {
+            int count = rest_time;
+
+            @Override
+            public void run()
+            {
+                count--;
+                rest_timer.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        rest_timer.setText("휴식 시간: " + count + " 초");
+                    }
+                });
+
+                if(count <= 0) {
+                    rest_timer.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            rest_timer.setText("운동 중...");
+                            serialSend("1");
+                            stopTimerTask();
+                        }
+                    });
                 }
-                runOnUiThread(runnable);
             }
+        };
+        timer.schedule(timerTask,0 ,1000);
+    }
+
+    private void stopTimerTask()
+    {
+        if(timerTask != null)
+        {
+            timerTask.cancel();
+            timerTask = null;
         }
     }
 }

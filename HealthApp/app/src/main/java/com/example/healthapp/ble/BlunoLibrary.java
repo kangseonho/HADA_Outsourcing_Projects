@@ -156,7 +156,7 @@ public abstract  class BlunoLibrary extends AppCompatActivity {
                 Log.d(TAG, "Connect request success");
                 mConnectionState=connectionStateEnum.isConnecting;
                 onConectionStateChange(mConnectionState);
-                mHandler.postDelayed(mConnectingOverTimeRunnable, 10000);
+                mHandler.postDelayed(mConnectingOverTimeRunnable, 1000);
             }
             else {
                 Log.d(TAG, "Connect request fail");
@@ -191,18 +191,12 @@ public abstract  class BlunoLibrary extends AppCompatActivity {
     public void onPauseProcess() {
         System.out.println("BLUNOActivity onPause");
         scanLeDevice(false);
-        try {
-            mainContext.unregisterReceiver(mGattUpdateReceiver);
-            mConnectionState= connectionStateEnum.isToScan;
-            onConectionStateChange(mConnectionState);
-            mScanDeviceDialog.dismiss();
-        } catch (IllegalArgumentException e){
 
-        } catch (Exception e) {
+        mainContext.unregisterReceiver(mGattUpdateReceiver);
+        mConnectionState= connectionStateEnum.isToScan;
+        onConectionStateChange(mConnectionState);
+    //    mScanDeviceDialog.dismiss();
 
-        } finally {
-
-        }
         if(mBluetoothLeService!=null)
         {
             mBluetoothLeService.disconnect();
@@ -219,8 +213,7 @@ public abstract  class BlunoLibrary extends AppCompatActivity {
         System.out.println("MiUnoActivity onStop");
         if(mBluetoothLeService!=null)
         {
-//			mBluetoothLeService.disconnect();
-//            mHandler.postDelayed(mDisonnectingOverTimeRunnable, 10000);
+			mBluetoothLeService.disconnect();
             mHandler.removeCallbacks(mDisonnectingOverTimeRunnable);
             mBluetoothLeService.close();
         }
@@ -339,7 +332,6 @@ public abstract  class BlunoLibrary extends AppCompatActivity {
                 scanLeDevice(true);
                 break;
             case isScanning:
-
                 break;
 
             case isConnecting:

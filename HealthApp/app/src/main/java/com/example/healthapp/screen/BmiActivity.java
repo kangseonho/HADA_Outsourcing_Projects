@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -17,6 +18,8 @@ public class BmiActivity extends AppCompatActivity {
     private EditText height;
     private EditText weight;
     private TextView result;
+    private Button result_button;
+    private Button back_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,21 +41,30 @@ public class BmiActivity extends AppCompatActivity {
         height = (EditText) findViewById(R.id.height);
         weight = (EditText) findViewById(R.id.weight);
         result = (TextView) findViewById(R.id.result);
+        result_button = (Button) findViewById(R.id.result_button);
+        back_button = (Button) findViewById(R.id.back_button);
+
+        result_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!height.getText().toString().equals("") && !weight.getText().toString().equals("")) {
+                    String bmi = String.format("%.2f",caculateBMI(height.getText().toString(),weight.getText().toString()));
+                    String state = stateBMI(caculateBMI(height.getText().toString(),weight.getText().toString()));
+
+                    result.setText("BMI 수치: "+ bmi + " / "+"상태: "+ state);
+                }
+            }
+        });
+
+        back_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), SelectActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
-    public void onClickResult(View view) {
-        if(!height.getText().toString().equals("") && !weight.getText().toString().equals("")) {
-            String bmi = String.format("%.2f",caculateBMI(height.getText().toString(),weight.getText().toString()));
-            String state = stateBMI(caculateBMI(height.getText().toString(),weight.getText().toString()));
-
-            result.setText("BMI 수치: "+ bmi + " / "+"상태: "+ state);
-        }
-    }
-
-    public void onClickBack(View view) {
-        Intent intent = new Intent(getApplicationContext(), SelectActivity.class);
-        startActivity(intent);
-    }
 
     private float caculateBMI(String height, String weight) {
         float mheight = Float.valueOf(height);
@@ -64,14 +76,14 @@ public class BmiActivity extends AppCompatActivity {
 
     private String stateBMI(float bmi) {
         String state = "";
-
+        System.out.println(bmi);
         if (bmi < 20) {
             state = "저체중";
-        } else if (bmi >= 20 && bmi <= 24) {
+        } else if (bmi >= 20 && bmi <= 25) {
             state = "정상";
-        }else if (bmi >= 25 && bmi <= 29 ) {
+        }else if (bmi >= 25 && bmi <= 30 ) {
             state = "과체중";
-        }else if (bmi >= 30) {
+        }else if (bmi > 30) {
             state = "비만";
         }else {
             state = "옳지 않은 값";
