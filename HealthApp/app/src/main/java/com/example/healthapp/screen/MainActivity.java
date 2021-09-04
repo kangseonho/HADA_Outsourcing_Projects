@@ -17,6 +17,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.example.healthapp.R;
 import com.example.healthapp.ble.BlunoLibrary;
+import com.example.healthapp.dto.SoundManager;
 
 import java.util.List;
 
@@ -32,6 +33,9 @@ public class MainActivity extends BlunoLibrary {
 
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.custom_bar);
+
+        SoundManager soundManager = new SoundManager(getApplicationContext());
+        soundManager.playSound();
 
         request(1000, new OnPermissionsResult() {
             @Override

@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.example.healthapp.R;
 import com.example.healthapp.dto.PreferenceManager;
+import com.example.healthapp.dto.SoundManager;
 
 
 public class HealthPopupGoActivity extends Activity {
@@ -19,11 +20,14 @@ public class HealthPopupGoActivity extends Activity {
     EditText set_count;
     EditText each_count;
     EditText rest_time;
+    SoundManager soundManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_health_popup_go);
+
+        soundManager = new SoundManager(this);
 
         ok_button = findViewById(R.id.ok_button);
         back_button = findViewById(R.id.back_button);
@@ -34,6 +38,7 @@ public class HealthPopupGoActivity extends Activity {
         ok_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                soundManager.playSound();
                 if(set_count.getText().toString().equals("") || each_count.getText().toString().equals("") || rest_time.getText().toString().equals("")) {
                     Toast.makeText(HealthPopupGoActivity.this,"잘못된 입력입니다.",Toast.LENGTH_SHORT).show();
                 } else {
@@ -50,7 +55,7 @@ public class HealthPopupGoActivity extends Activity {
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                soundManager.playSound();finish();
             }
         });
     }

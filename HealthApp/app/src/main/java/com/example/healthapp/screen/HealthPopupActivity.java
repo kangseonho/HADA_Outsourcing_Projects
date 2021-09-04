@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.example.healthapp.R;
 import com.example.healthapp.ble.BlunoLibrary;
 import com.example.healthapp.dto.PreferenceManager;
+import com.example.healthapp.dto.SoundManager;
 
 import java.util.List;
 
@@ -20,6 +21,7 @@ public class HealthPopupActivity extends BlunoLibrary {
     Button init;
     Button goHealth;
     Button back_button;
+    SoundManager soundManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +31,7 @@ public class HealthPopupActivity extends BlunoLibrary {
         init = findViewById(R.id.init_setting);
         goHealth = findViewById(R.id.go_health);
         back_button = findViewById(R.id.back_button);
+        soundManager = new SoundManager(this);
 
         Intent intent = getIntent();
         String data = intent.getStringExtra("health");
@@ -52,13 +55,14 @@ public class HealthPopupActivity extends BlunoLibrary {
         init.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                buttonScanOnClickProcess();
+                buttonScanOnClickProcess(); soundManager.playSound();
             }
         });
 
         goHealth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                soundManager.playSound();
                 Intent intent1 = new Intent(getApplicationContext(), HealthPopupGoActivity.class);
                 startActivityForResult(intent1, 1);
                 finish();
@@ -68,6 +72,7 @@ public class HealthPopupActivity extends BlunoLibrary {
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                soundManager.playSound();
                 finish();
             }
         });

@@ -10,17 +10,21 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.healthapp.R;
+import com.example.healthapp.dto.SoundManager;
 
 public class SelectHealthSystemActivity extends AppCompatActivity {
 
     Button system_button1;
     Button system_button2;
     Button back_button;
+    SoundManager soundManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_health_system);
+
+        soundManager = new SoundManager(this);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowHomeEnabled(false);
@@ -41,6 +45,7 @@ public class SelectHealthSystemActivity extends AppCompatActivity {
         system_button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                soundManager.playSound();
                 Intent intent = new Intent(getApplicationContext(), HealthActivity.class);
                 startActivity(intent);
             }
@@ -49,6 +54,7 @@ public class SelectHealthSystemActivity extends AppCompatActivity {
         system_button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                soundManager.playSound();
                 Intent intent = new Intent(getApplicationContext(), HealthActivity.class);
                 startActivity(intent);
             }
@@ -57,6 +63,7 @@ public class SelectHealthSystemActivity extends AppCompatActivity {
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                soundManager.playSound();
                 Intent intent = new Intent(getApplicationContext(), SelectHealthActivity.class);
                 startActivity(intent);
             }

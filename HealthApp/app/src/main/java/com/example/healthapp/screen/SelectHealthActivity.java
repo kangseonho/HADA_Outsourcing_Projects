@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.healthapp.R;
+import com.example.healthapp.dto.SoundManager;
 
 public class SelectHealthActivity extends AppCompatActivity {
 
@@ -17,11 +18,14 @@ public class SelectHealthActivity extends AppCompatActivity {
     Button leg_health;
     Button shoulder_health;
     Button back_button;
+    SoundManager soundManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_health);
+
+        soundManager = new SoundManager(this);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowHomeEnabled(false);
@@ -41,21 +45,25 @@ public class SelectHealthActivity extends AppCompatActivity {
             public void onClick(View v) {
                 switch (v.getId()) {
                     case R.id.select_arm:
+                        soundManager.playSound();
                         intent = new Intent(getApplicationContext(), HealthPopupActivity.class);
                         intent.putExtra("health", "팔 운동");
                         startActivityForResult(intent, 1);
                         break;
                     case R.id.select_leg:
+                        soundManager.playSound();
                         intent = new Intent(getApplicationContext(), HealthPopupActivity.class);
                         intent.putExtra("health", "하체 운동");
                         startActivityForResult(intent, 1);
                         break;
                     case R.id.select_shoulder:
+                        soundManager.playSound();
                         intent = new Intent(getApplicationContext(), HealthPopupActivity.class);
                         intent.putExtra("health", "어깨 운동");
                         startActivityForResult(intent, 1);
                         break;
                     case R.id.back_button:
+                        soundManager.playSound();
                         intent = new Intent(getApplicationContext(), SelectActivity.class);
                         startActivity(intent);
                         break;

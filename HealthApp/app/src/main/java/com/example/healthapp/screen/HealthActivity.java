@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.example.healthapp.R;
 import com.example.healthapp.ble.BlunoLibrary;
 import com.example.healthapp.dto.PreferenceManager;
+import com.example.healthapp.dto.SoundManager;
 
 import java.util.List;
 import java.util.Timer;
@@ -46,12 +47,12 @@ public class HealthActivity extends BlunoLibrary {
     boolean flag_left = true;
     boolean flag_right = true;
     boolean flag = false;
+    SoundManager soundManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_health);
-
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowHomeEnabled(false);
         actionBar.setDisplayShowCustomEnabled(true);
@@ -63,6 +64,7 @@ public class HealthActivity extends BlunoLibrary {
         actionBar.setCustomView(view, layoutParams);
         Toolbar parent = (Toolbar) view.getParent();
         parent.setContentInsetsAbsolute(0, 0);
+        soundManager = new SoundManager(this);
 
         target_set = findViewById(R.id.target_set);
         target_count = findViewById(R.id.target_count);
@@ -105,14 +107,14 @@ public class HealthActivity extends BlunoLibrary {
         start_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                buttonScanOnClickProcess();
+                soundManager.playSound();buttonScanOnClickProcess();
             }
         });
 
         stop_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                soundManager.playSound();finish();
             }
         });
     }
@@ -197,11 +199,13 @@ public class HealthActivity extends BlunoLibrary {
 
         if(flag) {
             if (flag_left && left > 80) {
+                soundManager.playSound();
                 current_count_count++;
                 current_count.setText("현재 횟수: " + current_count_count + "회");
                 flag_left = false;
             }
             else if (flag_right && right > 80 ) {
+                soundManager.playSound();
                 current_count_count++;
                 current_count.setText("현재 횟수: " + current_count_count+"회");
                 flag_right = false;
@@ -252,6 +256,7 @@ public class HealthActivity extends BlunoLibrary {
                     rest_timer.post(new Runnable() {
                         @Override
                         public void run() {
+                            soundManager.playSound();
                             rest_timer.setText("운동 중...");
                             serialSend("1");
                             stopTimerTask();

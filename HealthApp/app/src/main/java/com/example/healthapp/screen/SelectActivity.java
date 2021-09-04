@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.healthapp.R;
+import com.example.healthapp.dto.SoundManager;
 
 public class SelectActivity extends AppCompatActivity {
 
@@ -17,11 +18,14 @@ public class SelectActivity extends AppCompatActivity {
     Button select_bmi;
     Button select_calendar;
     Button select_setting;
+    SoundManager soundManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select);
+
+        soundManager = new SoundManager(this);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowHomeEnabled(false);
@@ -41,18 +45,22 @@ public class SelectActivity extends AppCompatActivity {
             public void onClick(View v) {
                 switch (v.getId()) {
                     case R.id.select_health:
+                        soundManager.playSound();
                         intent = new Intent(getApplicationContext(), SelectHealthActivity.class);
                         startActivity(intent);
                         break;
                     case R.id.select_bmi:
+                        soundManager.playSound();
                         intent = new Intent(getApplicationContext(),BmiActivity.class);
                         startActivity(intent);
                         break;
                     case R.id.select_calendar:
+                        soundManager.playSound();
                         intent = new Intent(getApplicationContext(),CalendarActivity.class);
                         startActivity(intent);
                         break;
                     case R.id.select_setting:
+                        soundManager.playSound();
                         break;
                     default:
                         return;
