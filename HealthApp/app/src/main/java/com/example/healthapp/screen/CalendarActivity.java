@@ -25,7 +25,7 @@ import java.util.zip.Inflater;
 
 public class CalendarActivity extends AppCompatActivity {
 
-    final String[] healths = new String[] {"팔 운동","어깨 운동","다리 운동"};
+    final String[] healths = new String[] {"플랭크","푸쉬업","스쿼트"};
     boolean healths_flag[] = {false, false, false};
     GridView calendarView;
     TextView monthText;

@@ -16,20 +16,20 @@
         android:id="@+id/arm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="팔 운동"
+        android:text="플랭크"
         android:textSize="10sp"/>
 
     <TextView
         android:id="@+id/shoulder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="어깨 운동"
+        android:text="푸쉬업"
         android:textSize="10sp"/>
 
     <TextView
         android:id="@+id/leg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="다리 운동"
+        android:text="스쿼트"
         android:textSize="10sp"/>
 </LinearLayout>

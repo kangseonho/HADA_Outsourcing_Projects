@@ -15,8 +15,11 @@
         android:roundIcon="@drawable/appicon"
         android:supportsRtl="true"
         android:theme="@style/Theme.HealthApp">
-        <activity android:name=".screen.HealthActivity"></activity>
-        <activity android:name=".screen.SelectHealthSystemActivity"/>
+        <activity android:name=".screen.Bluetooth_popup"
+            android:theme="@style/Theme.AppCompat.DayNight.Dialog">
+        </activity>
+        <activity android:name=".screen.HealthActivity" />
+        <activity android:name=".screen.SelectHealthSystemActivity" />
         <activity
             android:name=".screen.HealthPopupGoActivity"
             android:theme="@style/Theme.AppCompat.DayNight.Dialog" />

@@ -25,7 +25,6 @@ public class BmiActivity extends AppCompatActivity {
     private TextView result;
     private Button result_button;
     private Button back_button;
-    Button button;
     SoundManager soundManager;
 
 
@@ -101,7 +100,6 @@ public class BmiActivity extends AppCompatActivity {
         }else {
             state = "옳지 않은 값";
         }
-
         return state;
     }
 }

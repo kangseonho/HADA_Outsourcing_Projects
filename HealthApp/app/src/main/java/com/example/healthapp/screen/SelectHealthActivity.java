@@ -47,19 +47,19 @@ public class SelectHealthActivity extends AppCompatActivity {
                     case R.id.select_arm:
                         soundManager.playSound();
                         intent = new Intent(getApplicationContext(), HealthPopupActivity.class);
-                        intent.putExtra("health", "팔 운동");
+                        intent.putExtra("health", "플랭크");
                         startActivityForResult(intent, 1);
                         break;
                     case R.id.select_leg:
                         soundManager.playSound();
                         intent = new Intent(getApplicationContext(), HealthPopupActivity.class);
-                        intent.putExtra("health", "하체 운동");
+                        intent.putExtra("health", "스쿼트");
                         startActivityForResult(intent, 1);
                         break;
                     case R.id.select_shoulder:
                         soundManager.playSound();
                         intent = new Intent(getApplicationContext(), HealthPopupActivity.class);
-                        intent.putExtra("health", "어깨 운동");
+                        intent.putExtra("health", "푸쉬업");
                         startActivityForResult(intent, 1);
                         break;
                     case R.id.back_button:

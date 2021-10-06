@@ -54,6 +54,15 @@
         app:layout_constraintStart_toStartOf="@+id/select_bmi"
         app:layout_constraintTop_toBottomOf="@+id/select_bmi" />
 
+    <ListView
+        android:id="@+id/bluetoothlist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
