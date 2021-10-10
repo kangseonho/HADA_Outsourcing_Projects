@@ -11,20 +11,18 @@
     <application
         android:allowBackup="true"
         android:icon="@drawable/appicon"
-        android:label="FITNESS SUPPORTER"
+        android:label="SMART YOGA MAT"
         android:roundIcon="@drawable/appicon"
         android:supportsRtl="true"
         android:theme="@style/Theme.HealthApp">
-        <activity android:name=".screen.Bluetooth_popup"
-            android:theme="@style/Theme.AppCompat.DayNight.Dialog">
-        </activity>
-        <activity android:name=".screen.HealthActivity" />
-        <activity android:name=".screen.SelectHealthSystemActivity" />
+        <activity android:name=".screen.FlankActivity"></activity>
+        <activity android:name=".screen.SqurtActivity" />
+        <activity
+            android:name=".screen.Bluetooth_popup"
+            android:theme="@style/Theme.AppCompat.DayNight.Dialog" />
+        <activity android:name=".screen.PushUpActivity" />
         <activity
             android:name=".screen.HealthPopupGoActivity"
-            android:theme="@style/Theme.AppCompat.DayNight.Dialog" />
-        <activity
-            android:name=".screen.HealthPopupActivity"
             android:theme="@style/Theme.AppCompat.DayNight.Dialog" />
         <activity android:name=".screen.SelectHealthActivity" />
         <activity android:name=".screen.LoadingActivity">
@@ -36,12 +34,7 @@
         </activity>
         <activity android:name=".screen.SelectActivity" />
         <activity android:name=".screen.CalendarActivity" />
-        <activity android:name=".screen.MainActivity" />
         <activity android:name=".screen.BmiActivity" />
-
-        <service
-            android:name=".ble.BluetoothLeService"
-            android:enabled="true" />
     </application>
 
 </manifest>

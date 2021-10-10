@@ -15,7 +15,7 @@
         android:textColor="@color/black"
         android:textSize="16sp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="60dp"
         android:background="@drawable/health_data_background"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -24,7 +24,7 @@
         android:id="@+id/current_set"
         android:layout_width="156dp"
         android:layout_height="40dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="60dp"
         android:layout_marginEnd="16dp"
         android:gravity="center"
         android:text="현재 세트:"
@@ -33,34 +33,6 @@
         android:background="@drawable/health_data_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
-
-    <TextView
-        android:id="@+id/target_count"
-        android:layout_width="156dp"
-        android:layout_height="40dp"
-        android:background="@drawable/health_data_background"
-        android:gravity="center"
-        android:text="목표 횟수:"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintEnd_toEndOf="@+id/target_set"
-        app:layout_constraintStart_toStartOf="@+id/target_set"
-        app:layout_constraintTop_toBottomOf="@+id/target_set"/>
-
-    <TextView
-        android:id="@+id/current_count"
-        android:layout_width="156dp"
-        android:layout_height="40dp"
-        android:background="@drawable/health_data_background"
-        android:gravity="center"
-        android:text="현재 횟수:"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintEnd_toEndOf="@+id/current_set"
-        app:layout_constraintStart_toStartOf="@+id/current_set"
-        app:layout_constraintTop_toBottomOf="@+id/current_set"/>
 
     <TextView
         android:id="@+id/lazer_distance_textView"
@@ -169,8 +141,10 @@
         android:textSize="20sp"
         app:backgroundTint="#64aded"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/progress_right"
+        app:layout_constraintEnd_toEndOf="@+id/textView9"
         app:layout_constraintStart_toStartOf="@+id/progress_left"
         app:layout_constraintTop_toBottomOf="@+id/rest_timer" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

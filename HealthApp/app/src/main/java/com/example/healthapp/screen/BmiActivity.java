@@ -57,7 +57,6 @@ public class BmiActivity extends AppCompatActivity {
         result_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                soundManager.playSound();
                 if(!height.getText().toString().equals("") && !weight.getText().toString().equals("")) {
                     String bmi = String.format("%.2f",caculateBMI(height.getText().toString(),weight.getText().toString()));
                     String state = stateBMI(caculateBMI(height.getText().toString(),weight.getText().toString()));
@@ -70,7 +69,6 @@ public class BmiActivity extends AppCompatActivity {
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                soundManager.playSound();
                 Intent intent = new Intent(getApplicationContext(), SelectActivity.class);
                 startActivity(intent);
             }

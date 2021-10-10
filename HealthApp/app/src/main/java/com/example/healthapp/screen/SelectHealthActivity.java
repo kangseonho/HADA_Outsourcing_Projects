@@ -45,25 +45,24 @@ public class SelectHealthActivity extends AppCompatActivity {
             public void onClick(View v) {
                 switch (v.getId()) {
                     case R.id.select_arm:
-                        soundManager.playSound();
-                        intent = new Intent(getApplicationContext(), HealthPopupActivity.class);
+                        soundManager.playFlankSound();
+                        intent = new Intent(getApplicationContext(), HealthPopupGoActivity.class);
                         intent.putExtra("health", "플랭크");
                         startActivityForResult(intent, 1);
                         break;
                     case R.id.select_leg:
-                        soundManager.playSound();
-                        intent = new Intent(getApplicationContext(), HealthPopupActivity.class);
+                        soundManager.playSqurtSound();
+                        intent = new Intent(getApplicationContext(), HealthPopupGoActivity.class);
                         intent.putExtra("health", "스쿼트");
                         startActivityForResult(intent, 1);
                         break;
                     case R.id.select_shoulder:
-                        soundManager.playSound();
-                        intent = new Intent(getApplicationContext(), HealthPopupActivity.class);
+                        soundManager.playPushUpSound();
+                        intent = new Intent(getApplicationContext(), HealthPopupGoActivity.class);
                         intent.putExtra("health", "푸쉬업");
                         startActivityForResult(intent, 1);
                         break;
                     case R.id.back_button:
-                        soundManager.playSound();
                         intent = new Intent(getApplicationContext(), SelectActivity.class);
                         startActivity(intent);
                         break;

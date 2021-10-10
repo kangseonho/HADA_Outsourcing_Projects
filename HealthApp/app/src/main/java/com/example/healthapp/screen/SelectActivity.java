@@ -16,6 +16,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -23,6 +24,7 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.example.healthapp.R;
+import com.example.healthapp.ble.BluetoothSingleton;
 import com.example.healthapp.dto.SoundManager;
 
 import java.io.IOException;
@@ -34,13 +36,10 @@ import java.util.UUID;
 public class SelectActivity extends AppCompatActivity {
 
     SoundManager soundManager;
-    UUID BT_MODULE_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"); // "random" unique identifier
-    BluetoothSocket btSocket = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select);
-
         soundManager = new SoundManager(this);
 
         ActionBar actionBar = getSupportActionBar();
@@ -54,31 +53,26 @@ public class SelectActivity extends AppCompatActivity {
         actionBar.setCustomView(view, layoutParams);
         Toolbar parent = (Toolbar) view.getParent();
         parent.setContentInsetsAbsolute(0, 0);
-
         View.OnClickListener buttonListener =  new View.OnClickListener() {
             Intent intent;
             @Override
             public void onClick(View v) {
                 switch (v.getId()) {
                     case R.id.select_health:
-                        soundManager.playSound();
                         intent = new Intent(getApplicationContext(), SelectHealthActivity.class);
                         startActivity(intent);
                         break;
                     case R.id.select_bmi:
-                        soundManager.playSound();
                         intent = new Intent(getApplicationContext(),BmiActivity.class);
                         startActivity(intent);
                         break;
                     case R.id.select_calendar:
-                        soundManager.playSound();
                         intent = new Intent(getApplicationContext(),CalendarActivity.class);
                         startActivity(intent);
                         break;
                     case R.id.select_setting:
-                        soundManager.playSound();
                         intent = new Intent(getApplicationContext(), Bluetooth_popup.class);
-                        startActivity(intent);
+                        startActivityForResult(intent, 1);
                         break;
                     default:
                         return;
@@ -92,28 +86,22 @@ public class SelectActivity extends AppCompatActivity {
         findViewById(R.id.select_setting).setOnClickListener(buttonListener);
     }
 
-    private BluetoothSocket createBluetoothSocket(BluetoothDevice device) throws IOException {
-        try {
-            final Method m = device.getClass().getMethod("createInsecureRfcommSocketToServiceRecord", UUID.class);
-            return (BluetoothSocket) m.invoke(device, BT_MODULE_UUID);
-        } catch (Exception e) {
-        }
-        return device.createRfcommSocketToServiceRecord(BT_MODULE_UUID);
-    }
+//    private BluetoothSocket createBluetoothSocket(BluetoothDevice device) throws IOException {
+//        try {
+//            final Method m = device.getClass().getMethod("createInsecureRfcommSocketToServiceRecord", UUID.class);
+//            return (BluetoothSocket) m.invoke(device, BT_MODULE_UUID);
+//        } catch (Exception e) {
+//        }
+//        return device.createRfcommSocketToServiceRecord(BT_MODULE_UUID);
+//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == 1) {
-            Intent popup_result = getIntent();
-            BluetoothDevice bluetoothDevice = popup_result.getExtras().getParcelable("bluetooth");
-            if (bluetoothDevice != null) {
-                try {
-                    btSocket = createBluetoothSocket(bluetoothDevice);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+        if(requestCode == 1) {
+            if(resultCode==RESULT_OK) {
+                BluetoothDevice bluetoothDevice = data.getExtras().getParcelable("bluetooth");
+                BluetoothSingleton.getInstance().setBluetoothDevice(bluetoothDevice);
             }
         }
     }

@@ -152,9 +152,9 @@
         android:background="@drawable/health_data_background"
         android:gravity="center"
         android:text="00 : 00"
-        android:visibility="invisible"
         android:textColor="@color/black"
         android:textSize="16sp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/textView8"
         app:layout_constraintEnd_toStartOf="@+id/progress_right"
         app:layout_constraintStart_toEndOf="@+id/progress_left"/>
@@ -172,5 +172,6 @@
         app:layout_constraintEnd_toEndOf="@+id/progress_right"
         app:layout_constraintStart_toStartOf="@+id/progress_left"
         app:layout_constraintTop_toBottomOf="@+id/rest_timer" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

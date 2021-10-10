@@ -57,7 +57,6 @@ public class CalendarActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 CalendarItem item = adt.getItem(position);
-                soundManager.playSound();
                 if(item.getDay() != 0) {
                     new AlertDialog.Builder(CalendarActivity.this)
                             .setTitle("선택")
@@ -67,13 +66,11 @@ public class CalendarActivity extends AppCompatActivity {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which, boolean isChecked) {
                                     healths_flag[which] = isChecked;
-                                    soundManager.playSound();
                                 }
                             })
                             .setPositiveButton("확인", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    soundManager.playSound();
                                         if(healths_flag[0]) {
                                             PreferenceManager.setInt(CalendarActivity.this,String.valueOf(adt.getCurYear())+String.valueOf(adt.getCurMonth())+String.valueOf(item.getDay())
                                             +"arm",View.VISIBLE);
@@ -103,7 +100,6 @@ public class CalendarActivity extends AppCompatActivity {
                             .setNegativeButton("취소", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    soundManager.playSound();
                                 }
                             })
                             .show();
@@ -120,7 +116,6 @@ public class CalendarActivity extends AppCompatActivity {
         monthPrevious.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                soundManager.playSound();
                 adt.setPreviousMonth();
                 adt.notifyDataSetChanged(); //어댑터 데이터 갱신하고 뷰 다시 뿌리기
                 setMonthText();
@@ -131,7 +126,6 @@ public class CalendarActivity extends AppCompatActivity {
         monthNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                soundManager.playSound();
                 adt.setNextMonth();
                 adt.notifyDataSetChanged(); //어댑터 데이터 갱신하고 뷰 다시 뿌리기
                 setMonthText();

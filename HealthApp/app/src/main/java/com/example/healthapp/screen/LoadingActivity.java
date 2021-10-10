@@ -25,7 +25,6 @@ public class LoadingActivity extends AppCompatActivity {
     }
 
     public void onTouchToScreen(View view) {
-        soundManager.playSound();
         Intent intent = new Intent(getApplicationContext(), SelectActivity.class);
         startActivity(intent);
     }

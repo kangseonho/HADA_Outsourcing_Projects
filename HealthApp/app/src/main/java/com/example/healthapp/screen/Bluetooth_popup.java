@@ -14,6 +14,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -29,9 +30,6 @@ import java.util.UUID;
 
 public class Bluetooth_popup extends AppCompatActivity {
 
-    SoundManager soundManager;
-    UUID BT_MODULE_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"); // "random" unique identifier
-    BluetoothSocket btSocket = null;
     BluetoothAdapter btAdapter;
     ListView bluetoothlistView;
     Set<BluetoothDevice> pairedDevices;
@@ -85,7 +83,6 @@ public class Bluetooth_popup extends AppCompatActivity {
         }
     }
 
-
     public class myBluetoothClickListener implements AdapterView.OnItemClickListener {
 
         @Override
@@ -97,10 +94,9 @@ public class Bluetooth_popup extends AppCompatActivity {
             boolean flag = true;
 
             BluetoothDevice device = btAdapter.getRemoteDevice(address);
-
-            Intent intent = new Intent(getApplicationContext(), SelectActivity.class);
+            Intent intent = new Intent();
             intent.putExtra("bluetooth",device);
-            startActivityForResult(intent,1);
+            setResult(RESULT_OK, intent);
             finish();
         }
     }
