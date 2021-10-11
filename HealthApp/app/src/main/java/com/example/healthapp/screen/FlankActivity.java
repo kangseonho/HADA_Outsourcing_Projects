@@ -90,7 +90,6 @@ public class FlankActivity extends AppCompatActivity {
         rest_time = PreferenceManager.getInt(getApplicationContext(), "rest_time");
         init_left = PreferenceManager.getInt(getApplicationContext(), "initValueLeft");
         init_right = PreferenceManager.getInt(getApplicationContext(), "initValueRight");
-        BluetoothSingleton.getInstance().setBluetoothSocket();
 
 
         target_set.setText("목표 세트: " + target_set_count+"회");
@@ -224,7 +223,7 @@ public class FlankActivity extends AppCompatActivity {
 
         timerTask = new TimerTask()
         {
-            int count = target_set_count;
+            int count = target_count_count;
             @Override
             public void run()
             {
@@ -259,14 +258,21 @@ public class FlankActivity extends AppCompatActivity {
                                 current_set.setText("현재 횟수: " + current_set_count+"회");
                             }
                         });
-                        if (target_set_count == current_set_count) {
-                            rest_timer.setText("운동 종료");
+                        if (target_set_count <= current_set_count) {
+                            rest_timer.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    rest_timer.setText("운동 종료");
+                                }
+                            });
                             stopTimerTask();
+                            threadFlag = false;
+                            connectedThread.cancel();
                         }
                         timeFlag = false;
                     } else {
                         threadFlag = true;
-                        count = target_set_count;
+                        count = target_count_count;
                         timeFlag = true;
                     }
                 }

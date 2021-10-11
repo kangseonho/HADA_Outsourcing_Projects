@@ -151,15 +151,16 @@ public class PushUpActivity extends AppCompatActivity {
                             current_count_count = 0;
                             current_count.setText("현재 횟수: "+ current_count_count+"회");
                             current_set_count++;
-                            if(target_set_count <= current_set_count) {
-                                connectedThread.cancel();
-                                rest_timer.setText("운동 종료");
-                            }
                             current_set.setText("현재 세트: " + current_set_count+"회");
-
                             progressBar_left.setProgress(0);
                             progressBar_right.setProgress(0);
                             startTimerTask();
+                            if(target_set_count <= current_set_count) {
+                                stopTimerTask();
+                                threadFlag = false;
+                                rest_timer.setText("운동 종료");
+                                connectedThread.cancel();
+                            }
                         }
 
                     } catch (UnsupportedEncodingException e) {
